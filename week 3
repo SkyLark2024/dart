@@ -1,0 +1,27 @@
+import 'dart:io';
+
+void main() {
+  // Prompting the user for a number
+  stdout.write('Enter a number: ');
+  
+  // Reading user input
+  String input = stdin.readLineSync();
+  
+  // Parsing user input to integer
+  int number = int.tryParse(input);
+  
+  // Checking if input is a valid number
+  if (number != null) {
+    // Checking the criteria and printing the message accordingly
+    if (number > 10) {
+      print('Your number is greater than 10');
+    } else if (number < 10) {
+      print('Your number is less than 10');
+    } else {
+      print('Your number is equal to 10');
+    }
+  } else {
+    // Handling invalid input
+    print('Invalid input. Please enter a valid number.');
+  }
+}
