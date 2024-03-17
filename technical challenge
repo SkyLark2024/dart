@@ -1,0 +1,82 @@
+import 'dart:io';
+
+// Interface definition
+abstract class Vehicle {
+  void accelerate();
+  void brake();
+}
+
+// Base class
+class Car {
+  String make;
+  String model;
+  int year;
+
+  Car(this.make, this.model, this.year);
+
+  void displayInfo() {
+    print('Make: $make, Model: $model, Year: $year');
+  }
+}
+
+// Subclass inheriting from Car and implementing Vehicle interface
+class ElectricCar extends Car implements Vehicle {
+  double batteryLevel;
+
+  ElectricCar(String make, String model, int year, this.batteryLevel)
+      : super(make, model, year);
+
+  @override
+  void accelerate() {
+    print('Electric car accelerating...');
+  }
+
+  @override
+  void brake() {
+    print('Electric car braking...');
+  }
+
+  // Overriding displayInfo method
+  @override
+  void displayInfo() {
+    super.displayInfo();
+    print('Battery Level: $batteryLevel');
+  }
+}
+
+// Method to read data from file and create ElectricCar instance
+ElectricCar createCarFromData(String filePath) {
+  var file = File(filePath);
+  var lines = file.readAsLinesSync();
+
+  var data = lines[0].split(',');
+  var make = data[0];
+  var model = data[1];
+  var year = int.parse(data[2]);
+  var batteryLevel = double.parse(data[3]);
+
+  return ElectricCar(make, model, year, batteryLevel);
+}
+
+// Method demonstrating the use of a loop
+void demonstrateLoop() {
+  print('Loop demonstration:');
+  for (int i = 1; i <= 5; i++) {
+    print('Iteration $i');
+  }
+}
+
+void main() {
+  // Initialize ElectricCar instance with data from file
+  var car = createCarFromData('car_data.txt');
+
+  // Display car information
+  car.displayInfo();
+
+  // Accelerate and brake the car
+  car.accelerate();
+  car.brake();
+
+  // Demonstrate loop
+  demonstrateLoop();
+}
